@@ -1,4 +1,4 @@
-# 🔐 Authentication System - Back-End
+Authentication System - Back-End
 
 This is the **Back-End** of the Authentication System project.  
 It provides secure user management, authentication, and API endpoints that connect with the Front-End.  
@@ -9,7 +9,7 @@ It provides secure user management, authentication, and API endpoints that conne
 
 ---
 
-## 🚀 Features
+Features
 
 - User registration with validation  
 - Secure login with hashed passwords  
@@ -20,12 +20,12 @@ It provides secure user management, authentication, and API endpoints that conne
 
 ---
 
-## 📂 Project Structure
+Project Structure
 
 
 ---
 
-## ⚙️ Tech Stack
+Tech Stack
 
 - **Node.js** + **Express.js** (server & API)  
 - **CORS** for cross-origin requests  
@@ -33,7 +33,7 @@ It provides secure user management, authentication, and API endpoints that conne
 
 ---
 
-## ▶️ How to Run Locally
+How to Run Locally
 
 1. Clone the repository:
    ```bash
