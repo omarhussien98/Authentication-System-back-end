@@ -1,4 +1,3 @@
-// استدعاء المكتبات
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
@@ -17,7 +16,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-// تحقق من اتصال الخادم
 async function checkServer() {
     try {
         const response = await fetch(API_BASE_URL + '/api/health');
@@ -30,7 +28,6 @@ async function checkServer() {
 
 checkServer();
 
-// ⭐⭐ الاتصال بقاعدة البيانات MongoDB - تم التعديل إلى رابطك ⭐⭐
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://omaranr9348_db_user:<pf6Me0twRTnsAt3e>@cluster0.bbnxyry.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 mongoose.connect(MONGODB_URI, {
@@ -39,7 +36,6 @@ mongoose.connect(MONGODB_URI, {
 }).then(() => console.log('✅ تم الاتصال بقاعدة MongoDB بنجاح'))
   .catch(err => console.error('❌ خطأ في الاتصال بقاعدة البيانات:', err));
 
-// تعريف Schema للمستخدمين
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
@@ -47,10 +43,8 @@ const userSchema = new mongoose.Schema({
     created_at: { type: Date, default: Date.now }
 });
 
-// Model للمستخدم
 const User = mongoose.model('User', userSchema);
 
-// Middleware للتحقق من التوكن
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -68,7 +62,6 @@ function authenticateToken(req, res, next) {
     });
 }
 
-// ✅ مسار التسجيل
 app.post('/api/register', async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -77,7 +70,6 @@ app.post('/api/register', async (req, res) => {
             return res.status(400).json({ error: 'جميع الحقول مطلوبة' });
         }
 
-        // تحقق من البريد الإلكتروني
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             return res.status(400).json({ error: 'صيغة البريد الإلكتروني غير صحيحة' });
@@ -87,20 +79,16 @@ app.post('/api/register', async (req, res) => {
             return res.status(400).json({ error: 'كلمة المرور يجب أن تكون至少 6 أحرف' });
         }
 
-        // تحقق من وجود المستخدم
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ error: 'هذا البريد الإلكتروني مسجل مسبقاً' });
         }
 
-        // تشفير كلمة المرور
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // إنشاء المستخدم
         const newUser = new User({ name, email, password: hashedPassword });
         await newUser.save();
 
-        // إنشاء توكن
         const token = jwt.sign({ userId: newUser._id, email }, JWT_SECRET, { expiresIn: '24h' });
 
         res.status(201).json({
@@ -114,7 +102,6 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-// ✅ مسار تسجيل الدخول
 app.post('/api/login', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -123,19 +110,16 @@ app.post('/api/login', async (req, res) => {
             return res.status(400).json({ error: 'البريد الإلكتروني وكلمة المرور مطلوبان' });
         }
 
-        // البحث عن المستخدم
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ error: 'البريد الإلكتروني أو كلمة المرور غير صحيحين' });
         }
 
-        // تحقق من كلمة المرور
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
             return res.status(400).json({ error: 'البريد الإلكتروني أو كلمة المرور غير صحيحين' });
         }
 
-        // إنشاء توكن
         const token = jwt.sign({ userId: user._id, email }, JWT_SECRET, { expiresIn: '24h' });
 
         res.json({
@@ -149,7 +133,6 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// ✅ مسار للتحقق من التوكن
 app.get('/api/verify', authenticateToken, async (req, res) => {
     try {
         const user = await User.findById(req.user.userId).select('-password');
@@ -163,7 +146,6 @@ app.get('/api/verify', authenticateToken, async (req, res) => {
     }
 });
 
-// ⭐⭐ إضافة جديدة: التحقق من صحة الخادم وقاعدة البيانات ⭐⭐
 app.get('/api/health', async (req, res) => {
     try {
         const dbStatus = mongoose.connection.readyState === 1 ? 'متصل' : 'غير متصل';
@@ -179,13 +161,13 @@ app.get('/api/health', async (req, res) => {
     }
 });
 
-// خدمة الملفات الثابتة
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// تشغيل الخادم
+// running
 app.listen(PORT, () => {
     console.log(`🚀 الخادم يعمل على المنفذ ${PORT}`);
     console.log(`http://localhost:${PORT}/api/health`);
+
 });
