@@ -17,10 +17,9 @@ It provides secure user management, authentication, and API endpoints that conne
 
 - User registration with validation  
 - Secure login with hashed passwords  
-- JSON-based data storage (for demo purposes)  
-- RESTful API endpoints (GET)  
-- CORS-enabled for Front-End connection  
-- Simple, lightweight, and beginner-friendly  
+- MongoDB integration
+- RESTful API endpoints (GET, POST)
+- JWT-based authentication for secure sessions
 
 ---
 
@@ -34,12 +33,22 @@ It provides secure user management, authentication, and API endpoints that conne
 
 ## 🚀 Tech Stack
 
-- **Node.js** + **Express.js** (server & API)  
-- **CORS** for cross-origin requests  
-- **JSON** file storage (can be replaced later with MongoDB / SQL)  
+- Node.js + Express.js  
+- CORS
+- MongoDB/Mongoose
+- JWT Authentication
 
 ---
 
+## Environment Variables
+
+Create a .env file in the project root with the following variables:
+
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+PORT=3000
+
+----
 ## 💻 How to Run Locally
 
 ### git clone https://github.com/omarhussien98/Authentication-System-back-end.git
@@ -47,5 +56,7 @@ It provides secure user management, authentication, and API endpoints that conne
 ### npm install
 ### npm start
 ### http://localhost:3000/api/health
+----
 
-
+## 💡 Usage Notes
+- Passwords are securely hashed, and JWT tokens are implemented for robust authentication.
