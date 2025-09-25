@@ -1,4 +1,8 @@
-Authentication System - Back-End
+<img width="937" height="500" alt="API" src="https://github.com/user-attachments/assets/ddf2532f-e234-4589-86ca-2f0c1db15f4d" />
+
+-------
+
+# Authentication System - Back-End
 
 This is the **Back-End** of the Authentication System project.  
 It provides secure user management, authentication, and API endpoints that connect with the Front-End.  
@@ -9,23 +13,26 @@ It provides secure user management, authentication, and API endpoints that conne
 
 ---
 
-Features
+## ✨ Features
 
 - User registration with validation  
 - Secure login with hashed passwords  
 - JSON-based data storage (for demo purposes)  
-- RESTful API endpoints (GET / POST / DELETE)  
+- RESTful API endpoints (GET)  
 - CORS-enabled for Front-End connection  
 - Simple, lightweight, and beginner-friendly  
 
 ---
 
-Project Structure
+## 🛠 Prerequisites
 
+- Node.js (v14 or higher)
+- npm (Node Package Manager)
+- Postman (for API testing - optional)
 
 ---
 
-Tech Stack
+## 🚀 Tech Stack
 
 - **Node.js** + **Express.js** (server & API)  
 - **CORS** for cross-origin requests  
@@ -33,9 +40,12 @@ Tech Stack
 
 ---
 
-How to Run Locally
+## 💻 How to Run Locally
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/omarhussien98/Authentication-System-back-end.git
-   cd Authentication-System-back-end
+### git clone https://github.com/omarhussien98/Authentication-System-back-end.git
+### cd Authentication-System-back-end
+### npm install
+### npm start
+### http://localhost:3000/api/health
+
+
